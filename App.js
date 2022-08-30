@@ -1,20 +1,71 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
 
-export default function App() {
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import HomeScreen from './screens/HomeScreen';
+import AboutScreen from './screens/AboutScreen';
+import DetailScreen from './screens/DetailScreen';
+
+const StackNav = createNativeStackNavigator();
+function StackNavScreen() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <StackNav.Navigator>
+
+      <StackNav.Screen
+        name='Beranda'
+        component={ HomeScreen }
+        options={ {headerShown: false} }
+      />
+
+      <StackNav.Screen 
+        name='Detail'
+        component={ DetailScreen }
+        options={ {
+          headerShown: true,
+          title: "Detail",
+        } }
+      />
+
+    </StackNav.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const StackDrawer = createDrawerNavigator();
+export default function App() {
+  return (
+    <NavigationContainer>
+      <StackDrawer.Navigator
+        initialRouteName='Beranda'
+        useLegacyImplementation
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#F1C40F",
+          },
+          headerTintColor: "#FFF",
+          headerTitleStyle: {
+            fontWeight: "bold"
+          },
+          headerTitleAlign: "center"
+        }}
+      >
+
+        <StackDrawer.Screen 
+          name='Home'
+          component={ StackNavScreen }
+        />
+
+        <StackDrawer.Screen 
+          name='About'
+          component={ AboutScreen }
+        />
+
+      </StackDrawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+
