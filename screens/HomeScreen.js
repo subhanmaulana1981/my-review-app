@@ -45,6 +45,14 @@ function HomeScreen({ navigation }) {
 
     const [modalOpen, setModalOpen] = useState(false);
 
+    const addReview = (review) => {
+        review.key = Math.random.toString();
+        setReviews((currentReviews) => {
+            return [review, ...currentReviews]
+        });
+        setModalOpen(false);
+    }
+
     return (
 
         <ImageBackground
@@ -73,7 +81,7 @@ function HomeScreen({ navigation }) {
                         </Text>
 
                         {/* Form input data review */}
-                        <FormScreen />
+                        <FormScreen addReview={ addReview } />
 
                     </View>
 

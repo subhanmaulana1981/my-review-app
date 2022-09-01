@@ -24,7 +24,7 @@ const reviewSchema = yup.object({
         )
 });
 
-function FormScreen() {
+function FormScreen({ addReview }) {
     return (
         <View style={ globalStyles.container }>
             <Formik 
@@ -34,7 +34,9 @@ function FormScreen() {
                     rating: ""
                 }}
                 onSubmit={(values) => {
-                    console.log(values);
+                    // Proses penyimpanan data
+                    // console.log(values);
+                    addReview(values);                    
                 }}
                 validationSchema={ reviewSchema }
             >
