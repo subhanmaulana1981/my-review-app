@@ -4,11 +4,15 @@ import {
     View, 
     Text, 
     Button, 
-    TouchableOpacity
+    TouchableOpacity,
+    ImageBackground,
+    Modal
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Card from "../shared/Card";
 import { globalStyles } from "../shared/globalStyle";
+import { MaterialIcons } from "@expo/vector-icons";
+import FormScreen from "./FormScreen";
 
 function HomeScreen({ navigation }) {
 
@@ -39,38 +43,82 @@ function HomeScreen({ navigation }) {
     //     navigation.navigate("Detail");
     // }
 
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (
-        <View style={ globalStyles.container }>
-            <Text style={ globalStyles.titleText} >Home Screen</Text>
-            
-            <FlatList 
-                data={ reviews }
-                renderItem={ ({ item }) => (
 
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate("Detail", {
-                            itemID: item.key,
-                            itemTitle: item.title,
-                            itemBody: item.body,
-                            itemRating: item.rating,
-                        })}
-                    >
-                        <Card>
-                            <Text style={ globalStyles.bodyText }>{ item.title }</Text>
-                        </Card>
-                        
-                    </TouchableOpacity>
+        <ImageBackground
+            source={ require("../assets/review-background.png") }
+            resizeMode="cover"
+            style={ globalStyles.backImage} 
+        >
+            <View style={ globalStyles.container }>
 
-                ) }
-            />
+                <Modal
+                    visible={ modalOpen }
+                    style={{}}
+                >
 
-            {/* <Button 
-                title="Go to detail"
-                onPress={ pressHandler }
-            >
-                Ke detail screen
-            </Button> */}
-        </View>
+                    <View style={ globalStyles.modalContent }>
+
+                        <MaterialIcons 
+                            name="close"
+                            size={ 24 }
+                            onPress={() => setModalOpen(false)}
+                            style={ globalStyles.modalToggle }
+                        />
+
+                        <Text style={ globalStyles.titleText }>
+                            Add your review here
+                        </Text>
+
+                        {/* Form input data review */}
+                        <FormScreen />
+
+                    </View>
+
+                </Modal>
+
+                <Text style={ globalStyles.titleText} >Home Screen</Text>
+                
+                <FlatList 
+                    data={ reviews }
+                    renderItem={ ({ item }) => (
+
+                        <TouchableOpacity
+                            onPress={() => navigation.navigate("Detail", {
+                                itemID: item.key,
+                                itemTitle: item.title,
+                                itemBody: item.body,
+                                itemRating: item.rating,
+                            })}
+                        >
+                            <Card>
+                                <Text style={ globalStyles.bodyText }>{ item.title }</Text>
+                            </Card>
+                            
+                        </TouchableOpacity>
+
+                    ) }
+                />
+
+                <MaterialIcons 
+                    name="add"
+                    size={ 24 }
+                    onPress={() => setModalOpen(true)}
+                    style={ globalStyles.modalToggle }
+                />
+
+                {/* <Button 
+                    title="Go to detail"
+                    onPress={ pressHandler }
+                >
+                    Ke detail screen
+                </Button> */}
+            </View>
+
+        </ImageBackground>
+
     );
 }
 

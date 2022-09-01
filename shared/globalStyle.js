@@ -55,4 +55,50 @@ export const globalStyles = StyleSheet.create({
         resizeMode: "contain",
     },
 
+    backImage: {
+        flex: 1,
+        justifyContent: "flex-start",
+    },
+
+    modalToggle: {
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: "#F2F2F2",
+        padding: 10,
+        borderRadius: 10,
+        alignSelf: "center",
+    },
+
+    modalClose: {
+        marginTop: 20,
+        marginBottom: 0,
+    },
+
+    modalContent: {
+        flex: 1,
+    },
+
+    input: {
+        borderWidth: 1,
+        borderColor: "#DDD",
+        padding: 10,
+        fontSize: 18,
+        borderRadius: 6,
+    },
+
+    button: {
+        borderRadius: 8,
+        paddingVertical: 14,
+        paddingHorizontal: 10,
+        backgroundColor: "#F1C40F",
+    },
+
+    erroText: {
+        color: "crimson",
+        textAlign: "right",
+        fontWeight: "bold",
+        marginBottom: 10,
+        marginTop: 6,
+    },
+
 });
